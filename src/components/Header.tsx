@@ -92,7 +92,9 @@ const Header = () => {
             <Button variant="ghost" className="text-sm font-medium hidden lg:flex gap-2">
                <Phone size={16} className="text-orange-600" /> +91 98765 43210
             </Button>
-            <Button className="bg-[#1a2e44] hover:bg-orange-600">Enroll Now</Button>
+            <Link href="/enroll">
+              <Button className="bg-[#1a2e44] hover:bg-orange-600">Enroll Now</Button>
+            </Link>
           </div>
         </nav>
 
