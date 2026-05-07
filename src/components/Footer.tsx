@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
@@ -10,94 +12,142 @@ import {
   Mail, 
   Phone, 
   MapPin,
-  ArrowRight
+  ArrowRight,
+  ExternalLink,
+  ShieldCheck
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-slate-50 border-t">
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          {/* Section 1: Brand & About */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="bg-primary p-1.5 rounded-md text-primary-foreground">
-                <GraduationCap size={24} />
+    <footer className="w-full bg-slate-950 text-slate-300 border-t border-slate-800">
+      <div className="container mx-auto px-6 py-12 lg:py-20">
+        
+        {/* Top Section: Brand & Newsletter */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+          <div className="lg:col-span-5 space-y-6">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="bg-blue-600 p-2 rounded-xl text-white shadow-lg shadow-blue-900/20">
+                <GraduationCap size={28} />
               </div>
-              <span className="text-xl font-bold tracking-tight">CAREER MANTRA</span>
-            </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Empowering students with the latest computer skills. Join us to bridge the gap between education and career success.
+              <div className="flex flex-col">
+                <span className="text-2xl font-black tracking-tight text-white leading-none">CAREER MANTRA</span>
+                <span className="text-[10px] font-bold tracking-[0.3em] text-blue-500 uppercase">IT Training Hub</span>
+              </div>
+            </Link>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-md">
+              Etawah&apos;s leading computer institute empowering students with industry-standard skills in Web Dev, Tally, and Programming.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Facebook size={20} />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Instagram size={20} />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Youtube size={20} />
-              </Link>
+              <SocialLink href="#" icon={<Facebook size={18} />} />
+              <SocialLink href="#" icon={<Instagram size={18} />} />
+              <SocialLink href="#" icon={<Youtube size={18} />} />
             </div>
           </div>
 
-          {/* Section 2: Quick Links */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-3 text-sm">
-              <li><Link href="/courses" className="text-muted-foreground hover:text-primary hover:underline">All Courses</Link></li>
-              <li><Link href="/admissions" className="text-muted-foreground hover:text-primary hover:underline">Admission Process</Link></li>
-              <li><Link href="/verify-certificate" className="text-muted-foreground hover:text-primary hover:underline">Verify Certificate</Link></li>
-              <li><Link href="/career" className="text-muted-foreground hover:text-primary hover:underline">Job Placement</Link></li>
-            </ul>
-          </div>
-
-          {/* Section 3: Contact Info */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Get In Touch</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-3">
-                <MapPin className="text-primary h-5 w-5 shrink-0" />
-                <span className="text-muted-foreground">123 Education Hub, Near Main Station, Your City - 206001</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="text-primary h-4 w-4 shrink-0" />
-                <span className="text-muted-foreground">+91 98765 43210</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="text-primary h-4 w-4 shrink-0" />
-                <span className="text-muted-foreground">info@careermantra.com</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Section 4: Newsletter */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Stay Updated</h3>
-            <p className="text-sm text-muted-foreground mb-4">Subscribe to get info about new batches and scholarships.</p>
-            <div className="flex flex-col gap-2">
-              <Input placeholder="Your Email Address" className="bg-white" />
-              <Button className="w-full gap-2">
-                Subscribe <ArrowRight size={16} />
+          <div className="lg:col-span-7 bg-slate-900/50 p-6 md:p-8 rounded-[2rem] border border-slate-800 flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="text-lg font-bold text-white mb-2">Newsletter</h3>
+              <p className="text-xs text-slate-500">Get updates on new batches and placement drives.</p>
+            </div>
+            <div className="flex w-full md:w-auto flex-col sm:flex-row gap-2">
+              <Input 
+                placeholder="Email address" 
+                className="bg-slate-950 border-slate-800 rounded-full h-12 px-6 focus-visible:ring-blue-600 w-full sm:w-64" 
+              />
+              <Button className="bg-blue-600 hover:bg-blue-700 rounded-full h-12 px-8 font-bold shrink-0">
+                Join Now
               </Button>
+            </div>
+          </div>
+        </div>
+
+        <hr className="border-slate-900 mb-12" />
+
+        {/* Middle Section: Links Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          
+          <FooterGroup title="Popular Courses">
+            <FooterLink href="/courses/adca">ADCA (1 Year)</FooterLink>
+            <FooterLink href="/courses/web-dev">Full Stack Web Dev</FooterLink>
+            <FooterLink href="/courses/tally">Tally Prime + GST</FooterLink>
+            <FooterLink href="/courses/olevel">O Level (NIELIT)</FooterLink>
+          </FooterGroup>
+
+          <FooterGroup title="Quick Access">
+            <FooterLink href="/verify">Verify Certificate</FooterLink>
+            <FooterLink href="/admissions">Student Login</FooterLink>
+            <FooterLink href="/about">About Institute</FooterLink>
+            <FooterLink href="/contact">Help & Support</FooterLink>
+          </FooterGroup>
+
+          <FooterGroup title="Our Campus">
+            <div className="space-y-4 text-sm text-slate-400 mt-2">
+              <div className="flex gap-3">
+                <MapPin className="text-blue-500 shrink-0 w-5 h-5" />
+                <span>Vijay Nagar, Near Main Chauraha, Etawah, UP - 206001</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="text-blue-500 shrink-0 w-4 h-4" />
+                <span>+91 91490 89121</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="text-blue-500 shrink-0 w-4 h-4" />
+                <span>contact@careermantra.edu</span>
+              </div>
+            </div>
+          </FooterGroup>
+
+          <div className="space-y-6">
+            <div className="bg-gradient-to-br from-blue-600/10 to-transparent p-6 rounded-3xl border border-blue-600/20">
+              <ShieldCheck className="text-blue-500 mb-3" size={32} />
+              <h4 className="text-white font-bold mb-1">ISO Certified 2026</h4>
+              <p className="text-xs text-slate-500">Government recognized computer education center.</p>
             </div>
           </div>
 
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-          <p>© 2026 Career Mantra Computer Center. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
-            <Link href="/terms" className="hover:underline">Terms of Service</Link>
+        <div className="mt-16 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-[11px] font-medium text-slate-600 tracking-wide order-2 md:order-1">
+            © 2026 CAREER MANTRA COMPUTER & EDUCATION CENTER. ALL RIGHTS RESERVED.
+          </div>
+          <div className="flex gap-8 order-1 md:order-2">
+            <Link href="/privacy" className="text-xs text-slate-500 hover:text-blue-500 transition-colors">Privacy</Link>
+            <Link href="/terms" className="text-xs text-slate-500 hover:text-blue-500 transition-colors">Terms</Link>
+            <Link href="/sitemap" className="text-xs text-slate-500 hover:text-blue-500 transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+
+// Helper Components
+const FooterGroup = ({ title, children }: { title: string, children: React.ReactNode }) => (
+  <div className="space-y-4">
+    <h3 className="text-white font-bold text-sm uppercase tracking-[0.15em]">{title}</h3>
+    <ul className="space-y-3">{children}</ul>
+  </div>
+);
+
+const FooterLink = ({ href, children }: { href: string, children: React.ReactNode }) => (
+  <li>
+    <Link href={href} className="group text-sm text-slate-500 hover:text-blue-500 transition-all flex items-center gap-1">
+      <ArrowRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-blue-500" />
+      {children}
+    </Link>
+  </li>
+);
+
+const SocialLink = ({ href, icon }: { href: string, icon: React.ReactNode }) => (
+  <Link 
+    href={href} 
+    className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all active:scale-90"
+  >
+    {icon}
+  </Link>
+);
 
 export default Footer;
